@@ -1,5 +1,5 @@
 declare var testRequest: import('supertest').SuperTest<
-  import('supertest').Test
+    import('supertest').Test
 >;
 
 /*declare namespace NodeJS {
