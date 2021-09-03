@@ -1,4 +1,5 @@
 import { StormGlass, IForecastPoint } from '@src/clients/stormGlass';
+import { InternalError } from '@src/util/errors/internal-error';
 
 export enum BeachPosition {
     S = 'S',
@@ -20,6 +21,12 @@ export interface ITimeForecast {
     forecast: IBeachForecast[];
 }
 
+export class ForecastProcessingInternalError extends InternalError {
+    constructor(message: string) {
+        super(`Unexpectd error during the forecast processing: ${message}`);
+    }
+}
+
 export interface IBeachForecast extends Omit<IBeach, 'user'>, IForecastPoint {}
 
 export class Forecast {
@@ -29,24 +36,36 @@ export class Forecast {
         beaches: IBeach[]
     ): Promise<ITimeForecast[]> {
         const pointsWithCorrectSources: IBeachForecast[] = [];
-        for (const beach of beaches) {
-            const points = await this.stormGlass.fetchPoints(
-                beach.lat,
-                beach.lon
-            );
-            const enrichedBeachData = points.map((e) => ({
-                ...{
-                    lat: beach.lat,
-                    lon: beach.lon,
-                    name: beach.name,
-                    position: beach.position,
-                    rating: 1,
-                },
-                ...e,
-            }));
-            pointsWithCorrectSources.push(...enrichedBeachData);
+        try {
+            for (const beach of beaches) {
+                const points = await this.stormGlass.fetchPoints(
+                    beach.lat,
+                    beach.lon
+                );
+                const enrichedBeachData = this.enrichedBeachData(points, beach);
+                pointsWithCorrectSources.push(...enrichedBeachData);
+            }
+            return this.mapForecastByTime(pointsWithCorrectSources);
+        } catch (error) {
+            throw new ForecastProcessingInternalError((error as Error).message);
         }
-        return this.mapForecastByTime(pointsWithCorrectSources);
+    }
+
+    private enrichedBeachData(
+        points: IForecastPoint[],
+        beach: IBeach
+    ): IBeachForecast[] {
+        return points.map((e) => ({
+            ...{},
+            ...{
+                lat: beach.lat,
+                lon: beach.lon,
+                name: beach.name,
+                position: beach.position,
+                rating: 1,
+            },
+            ...e,
+        }));
     }
 
     private mapForecastByTime(forecast: IBeachForecast[]): ITimeForecast[] {
