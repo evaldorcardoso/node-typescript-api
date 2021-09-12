@@ -1,5 +1,5 @@
-import { StormGlass } from '@src/clients/stormGlass';
-import { BeachPosition, IBeach } from '@src/models/beach';
+import { StormGlass } from '../../clients/stormGlass';
+import { BeachPosition, IBeach } from '../../models/beach';
 import stormGlassNormalizedResponseFixture from '@test/fixtures/stormglass_normalized_response_3_hours.json';
 import { Forecast, ForecastProcessingInternalError } from '../forecast';
 
@@ -14,7 +14,7 @@ describe('Forecast Service', () => {
         const beaches: IBeach[] = [
             {
                 lat: -33.792726,
-                lon: 151.289824,
+                lng: 151.289824,
                 name: 'Manly',
                 position: BeachPosition.E,
             },
@@ -26,7 +26,7 @@ describe('Forecast Service', () => {
                 forecast: [
                     {
                         lat: -33.792726,
-                        lon: 151.289824,
+                        lng: 151.289824,
                         name: 'Manly',
                         position: 'E',
                         rating: 1,
@@ -46,7 +46,7 @@ describe('Forecast Service', () => {
                 forecast: [
                     {
                         lat: -33.792726,
-                        lon: 151.289824,
+                        lng: 151.289824,
                         name: 'Manly',
                         position: 'E',
                         rating: 1,
@@ -66,7 +66,7 @@ describe('Forecast Service', () => {
                 forecast: [
                     {
                         lat: -33.792726,
-                        lon: 151.289824,
+                        lng: 151.289824,
                         name: 'Manly',
                         position: 'E',
                         rating: 1,
@@ -100,7 +100,7 @@ describe('Forecast Service', () => {
         const beaches: IBeach[] = [
             {
                 lat: -33.792726,
-                lon: 151.289824,
+                lng: 151.289824,
                 name: 'Manly',
                 position: BeachPosition.E,
             },

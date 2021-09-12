@@ -17,10 +17,15 @@
       "noImplicitReturns": true,
       "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
+      "allowJs": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "isolatedModules": true,
       "baseUrl": "./",
       "paths": {
         "@src/*": ["./src/*"],
-        "@test/*": ["./test/*"]
+        "@test/*": ["./test/*"],
+        "@models/*": ["./src/models/*"],
       },
       "rootDirs": [
         "./src",
@@ -37,4 +42,4 @@
       "./node_modules/*",
       "dist"
     ]
-  }
+}

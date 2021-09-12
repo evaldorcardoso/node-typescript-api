@@ -1,4 +1,4 @@
-import { Beach } from "@src/models/beach"
+import { Beach } from "../../src/models/beach"
 
 describe('Beaches functional tests', () => {
     beforeAll(async () => {
@@ -9,7 +9,7 @@ describe('Beaches functional tests', () => {
         it('should create a beach with success', async() => {
             const newBeach = {
                 lat: -33.792776,
-                lon: 151.289824,
+                lng: 151.289824,
                 name: 'Manly',
                 position: 'E',
             };
@@ -22,7 +22,7 @@ describe('Beaches functional tests', () => {
         it('should return 422 when there is a validation error', async () => {
             const newBeach = {
                 lat: 'invalid_string',
-                lon: 151.289824,
+                lng: 151.289824,
                 name: 'Manly',
                 position: 'E',
             };

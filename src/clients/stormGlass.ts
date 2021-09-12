@@ -1,6 +1,6 @@
-import { InternalError } from '@src/util/errors/internal-error';
+import { InternalError } from '../util/errors/internal-error';
 import config, { IConfig } from 'config';
-import * as HTTPUtil from '@src/util/request';
+import * as HTTPUtil from '../util/request';
 import { AxiosError } from 'axios';
 
 export interface IStormGlassPointSource {
@@ -62,14 +62,14 @@ export class StormGlass {
 
     public async fetchPoints(
         lat: number,
-        lon: number
+        lng: number
     ): Promise<IForecastPoint[]> {
         try {
             const response =
                 await this.request.get<IStormGlassForecastResponse>(
                     `${stormGlassResourceConfig.get(
                         'apiUrl'
-                    )}/weather/point?lat=${lat}&lng=${lon}&params=${
+                    )}/weather/point?lat=${lat}&lng=${lng}&params=${
                         this.stormGlassAPIParams
                     }&source=${this.stormGlassAPISource}`,
                     {

@@ -1,6 +1,6 @@
-import { StormGlass, IForecastPoint } from '@src/clients/stormGlass';
-import { InternalError } from '@src/util/errors/internal-error';
-import { Beach, IBeach } from '@src/models/beach';
+import { StormGlass, IForecastPoint } from '../clients/stormGlass';
+import { InternalError } from '../util/errors/internal-error';
+import { IBeach } from '../models/beach';
 
 export interface IBeachForecast extends Omit<IBeach, 'user'>, IForecastPoint {}
 
@@ -28,7 +28,7 @@ export class Forecast {
             for (const beach of beaches) {
                 const points = await this.stormGlass.fetchPoints(
                     beach.lat,
-                    beach.lon
+                    beach.lng
                 );
                 const enrichedBeachData = this.enrichedBeachData(points, beach);
                 pointsWithCorrectSources.push(...enrichedBeachData);
@@ -47,7 +47,7 @@ export class Forecast {
             ...{},
             ...{
                 lat: beach.lat,
-                lon: beach.lon,
+                lng: beach.lng,
                 name: beach.name,
                 position: beach.position,
                 rating: 1,

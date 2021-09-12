@@ -1,9 +1,9 @@
-import { StormGlass } from '@src/clients/stormGlass';
-import * as HTTPUtil from '@src/util/request';
-import stormGlassWeather3HoursFixture from '@test/fixtures/stormglass_weather_3_hours.json';
-import stormGlassNormalized3HoursFixture from '@test/fixtures/stormglass_normalized_response_3_hours.json';
+import { StormGlass } from '../../clients/stormGlass';
+import * as HTTPUtil from '../../util/request';
+import stormGlassWeather3HoursFixture from '../../../test/fixtures/stormglass_weather_3_hours.json';
+import stormGlassNormalized3HoursFixture from '../../../test/fixtures/stormglass_normalized_response_3_hours.json';
 
-jest.mock('@src/util/request');
+jest.mock('../../util/request');
 
 describe('StormGlass client', () => {
     const MockedRequestClass = HTTPUtil.Request as jest.Mocked<
@@ -15,20 +15,20 @@ describe('StormGlass client', () => {
 
     it('should return the normalized forecast from the StormGlass service', async () => {
         const lat = -33.792726;
-        const lon = 151.289824;
+        const lng = 151.289824;
 
         mockedRequest.get.mockResolvedValue({
             data: stormGlassWeather3HoursFixture,
         } as HTTPUtil.IResponse);
 
         const stormGlass = new StormGlass(mockedRequest);
-        const response = await stormGlass.fetchPoints(lat, lon);
+        const response = await stormGlass.fetchPoints(lat, lng);
         expect(response).toEqual(stormGlassNormalized3HoursFixture);
     });
 
     it('should exclude incomplete data points', async () => {
         const lat = -33.792726;
-        const lon = 151.289824;
+        const lng = 151.289824;
         const incompleteResponse = {
             hours: [
                 {
@@ -44,7 +44,7 @@ describe('StormGlass client', () => {
         } as HTTPUtil.IResponse);
 
         const stormGlass = new StormGlass(mockedRequest);
-        const response = await stormGlass.fetchPoints(lat, lon);
+        const response = await stormGlass.fetchPoints(lat, lng);
 
         expect(response).toEqual([]);
     });

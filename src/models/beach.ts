@@ -10,7 +10,7 @@ export enum BeachPosition {
 export interface IBeach {
     _id?: string;
     lat: number;
-    lon: number;
+    lng: number;
     name: string;
     position: BeachPosition;
 }
@@ -18,7 +18,7 @@ export interface IBeach {
 const schema = new mongoose.Schema(
     {
       lat: { type: Number, required: true },
-      lon: { type: Number, required: true },
+      lng: { type: Number, required: true },
       name: { type: String, required: true },
       position: { type: String, required: true },
     },
