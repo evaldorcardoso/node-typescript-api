@@ -1,6 +1,6 @@
 import mongoose, { Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
-import AuthService from '@src/services/auth';
+import AuthService from '../services/auth';
 
 export interface IUser {
     _id?: string;

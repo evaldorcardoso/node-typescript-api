@@ -1,5 +1,5 @@
 import { Controller, Post } from '@overnightjs/core';
-import AuthService from '@src/services/auth';
+import AuthService from '../services/auth';
 import { Response, Request } from 'express';
 import { BaseController } from '.';
 import { User } from '../models/user';

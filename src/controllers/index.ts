@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import mongoose from 'mongoose';
-import { CUSTOM_VALIDATION } from '@src/models/user';
+import { CUSTOM_VALIDATION } from '../models/user';
 
 export abstract class BaseController {
   protected sendCreateUpdateErrorResponse(
